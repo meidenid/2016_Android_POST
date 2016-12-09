@@ -1,6 +1,6 @@
 <title>在室確認</title>
 <?php 
-include'xampp/config.php';
+include'config.php';
 //データベース接続
 $link = mysqli_connect("127.0.0.1", $dbuser,$dbpass,$dbname);
 
