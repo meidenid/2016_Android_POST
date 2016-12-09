@@ -1,6 +1,6 @@
 <?php
-include "../xampp/config.php";
-$link = mysqli_connect("127.0.0.1", $dbuser, "test", "newdb");
+include "../config.php";
+$link = mysqli_connect("localhost", $dbuser, $dbpass, $dbname);
 
 if (!$link) {
     echo "Error: Unable to connect to MySQL." . PHP_EOL;

@@ -6,7 +6,7 @@
 
 include 'config.php';
 
-  $linkDB = mysqli_connect("127.0.0.1", $dbuser, "test", "newdb");
+  $linkDB = mysqli_connect("localhost", $dbuser, $dbpass, $dbname);
 
   if (!$linkDB) {
       echo "Error: Unable to connect to MySQL." . PHP_EOL;
