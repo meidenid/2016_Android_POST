@@ -1,58 +1,73 @@
 <title>在室確認</title>
 <?php 
-$namae = array('石川先生','太田先生','高津先生',"鳥山先生",'中原先生','中山先生','福島先生','船橋先生');
+include'xampp/config.php';
+//データベース接続
+$link = mysqli_connect("127.0.0.1", $dbuser,$dbpass,$dbname);
 
-$flag = array(
-   "〇"=>"maru",
-   "✖"=>"batu"
-  );
+//データベース接続確認
+if (!$link) {
+    echo "Error: Unable to connect to MySQL." . PHP_EOL;
+    echo "Debugging errno: " . mysqli_connect_errno() . PHP_EOL;
+    echo "Debugging error: " . mysqli_connect_error() . PHP_EOL;
+    exit;
+}
 
- ?>
+$sql = "SELECT T_Name,Flag FROM `table`";
+
+$result = $link -> query($sql);
+
+//クエリー失敗
+if(!$result) {
+	echo $link->error;
+	exit();
+}
+
+//連想配列で取得
+while($row = $result->fetch_array(MYSQLI_ASSOC)){
+	$rows[] = $row;
+}
+
+//結果セットを解放
+$result->free();
+ 
+// データベース切断
+$link->close();
+ 
+?>
+
 
 <br>
 <center><font size="15"> 先生の在室状態確認</font></center>
-
+<meta charset="utf-8">
 <br>
 <center>
 <table>
   <tbody>
-
-    <tr>
+   <tr>
       <th>先生名</th>
       <th>在室状態</th>
     </tr>
+
+
+<?php //配列反復処理
+foreach($rows as $row){
+?> 
+ 
     <tr>
-      <td><?php echo $namae[0];?></td>
-      <td><?php echo array_rand($flag); ?></td>
+      <td><?php //名前表示
+      echo $row['T_Name']; ?></td>
+      <td><?php //Flagによって○×出力
+      if($row['Flag']==1){
+        echo "〇";
+        }else{
+          echo "×";
+        } ?></td>
     </tr>
-    <tr>
-      <td><?php echo $namae[1]?></td>
-      <td><?php echo array_rand($flag); ?></td> 
-    </tr>
-    <tr>
-      <td><?php echo $namae[2]?></td>
-      <td><?php echo array_rand($flag); ?></td>
-    </tr>
-    <tr>
-      <td><?php echo $namae[3];?></td>
-      <td><?php echo array_rand($flag);?></td>
-    </tr>
-    <tr>
-      <td><?php echo $namae[4];?></td>
-      <td><?php echo array_rand($flag); ?></td>
-    </tr>
-    <tr>
-      <td><?php echo $namae[5];?></td>
-      <td><?php echo array_rand($flag );?></td>
-    </tr>
-    <tr>
-      <td><?php echo $namae[6];?></td>
-      <td><?php echo array_rand($flag);?></td>
-    </tr>
-    <tr>
-      <td><?php echo $namae[7];?></td>
-      <td><?php echo array_rand($flag);?></td>
-    </tr>
+
+    <?php //反復処理締め
+} 
+?>
+ 
 
   </tbody>
 </table>
