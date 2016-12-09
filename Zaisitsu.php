@@ -12,7 +12,7 @@ if (!$link) {
     exit;
 }
 
-$sql = "SELECT T_Name,Flag FROM `table`";
+$sql = "SELECT T_Name,Flag FROM `stable`";
 
 $result = $link -> query($sql);
 
